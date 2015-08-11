@@ -4,11 +4,3 @@ suites:
         psr4_prefix: Spatie\SignedUrl
         src_path: src
 
-extensions:
-    - PhpSpec\Extension\CodeCoverageExtension
-
-code_coverage:
-  format:
-    - clover
-  output:
-    clover: build/logs/clover.xml

@@ -31,9 +31,16 @@ class SignedUrlSpec extends ObjectBehavior
         $this->validate($signedUrl)->shouldBeTrue();
     }
 
-    public function it_returns_false_when_validating_an_invalid_url()
+    public function it_returns_false_when_validating_a_forged_url()
     {
-        $signedUrl = 'http://myapp.com/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859-INVALID';
+        $signedUrl = 'http://myapp.com/somewhereelse/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859';
+
+        $this->validate($signedUrl)->shouldBeFalse();
+    }
+
+    public function it_returns_false_when_validating_an_expired_url()
+    {
+        $signedUrl = 'http://myapp.com/?expires=1123690544&signature=93e02326d7572632dd6edfa2665f2743';
 
         $this->validate($signedUrl)->shouldBeFalse();
     }

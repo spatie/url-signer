@@ -3,6 +3,7 @@
 namespace Spatie\SignedUrl;
 
 use DateTime;
+use League\Url\Components\QueryInterface;
 use League\Url\UrlImmutable;
 use Spatie\SignedUrl\Exceptions\InvalidExpiration;
 
@@ -49,7 +50,22 @@ class SignedUrl
         $expiration = $this->getExpirationTimestamp($expiration);
         $signature = $this->createSignature((string) $url, $expiration);
 
+        return (string) $this->signUrl($url, $expiration, $signature);
+    }
+
+    /**
+     * Add expiration and signature query parameters to an url.
+     *
+     * @param \League\Url\UrlImmutable $url
+     * @param string $expiration
+     * @param string $signature
+     *
+     * @return \League\Url\UrlImmutable
+     */
+    protected function signUrl(UrlImmutable $url, $expiration, $signature)
+    {
         $query = $url->getQuery();
+
         $query->modify([
             $this->expiresParameter => $expiration,
             $this->signatureParameter => $signature,
@@ -57,7 +73,7 @@ class SignedUrl
 
         $signedUrl = $url->setQuery($query);
 
-        return (string) $signedUrl;
+        return $signedUrl;
     }
 
     /**
@@ -73,26 +89,74 @@ class SignedUrl
 
         $query = $url->getQuery();
 
-        if (
-            !isset($query[$this->expiresParameter]) ||
-            !isset($query[$this->signatureParameter])
-        ) {
+        if ($this->isMissingAQueryParameter($query)) {
             return false;
         }
 
         $expiration = $query[$this->expiresParameter];
-        $signatureFromUrl = $query[$this->signatureParameter];
+        $providedSignature = $query[$this->signatureParameter];
 
+        if ($this->isExpired($expiration)) {
+            return false;
+        }
+
+        $intendedUrl = $this->getIntendedUrl($url);
+
+        $validSignature = $this->createSignature($intendedUrl, $expiration);
+
+        return $providedSignature === $validSignature;
+    }
+
+    /**
+     * Check if a query is missing a necessary parameter.
+     *
+     * @param \League\Url\Components\QueryInterface $query
+     *
+     * @return bool
+     */
+    protected function isMissingAQueryParameter(QueryInterface $query)
+    {
+        if (!isset($query[$this->expiresParameter])) {
+            return true;
+        }
+
+        if (!isset($query[$this->signatureParameter])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if an expiration date is expired.
+     *
+     * @param int $expiration
+     *
+     * @return bool
+     */
+    protected function isExpired($expiration)
+    {
+        return (int) $expiration < (new DateTime())->getTimestamp();
+    }
+
+    /**
+     * Retrieve the intended URL by stripping off the SignedUrl specific parameters.
+     *
+     * @param \League\Url\UrlImmutable $url
+     *
+     * @return \League\Url\UrlImmutable
+     */
+    protected function getIntendedUrl(UrlImmutable $url)
+    {
         $intendedQuery = $url->getQuery();
         $intendedQuery->modify([
             $this->expiresParameter => null,
             $this->signatureParameter => null,
         ]);
+
         $intendedUrl = $url->setQuery($intendedQuery);
 
-        $validSignature = $this->createSignature((string) $intendedUrl, $expiration);
-
-        return $signatureFromUrl === $validSignature;
+        return $intendedUrl;
     }
 
     /**
@@ -126,19 +190,21 @@ class SignedUrl
                 ->getTimestamp();
         }
 
-        throw new InvalidExpiration("Expiration date must be an instance of DateTime or an integer");
+        throw new InvalidExpiration('Expiration date must be an instance of DateTime or an integer');
     }
 
     /**
      * Generate a token to identify the secure action.
      *
-     * @param string $url
-     * @param string $expiration
+     * @param \League\Url\UrlImmutable|string $url
+     * @param string                          $expiration
      *
      * @return string
      */
     protected function createSignature($url, $expiration)
     {
+        $url = (string) $url;
+
         return md5("{$url}::{$expiration}::{$this->signatureKey}");
     }
 }

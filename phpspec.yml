@@ -3,4 +3,3 @@ suites:
         namespace: Spatie\SignedUrl
         psr4_prefix: Spatie\SignedUrl
         src_path: src
-

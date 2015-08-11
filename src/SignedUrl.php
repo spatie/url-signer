@@ -13,25 +13,28 @@ class SignedUrl
      * 
      * @var string
      */
-    protected $expirationQueryParameter;
+    protected $expiresParameter;
 
     /**
      * The url's query parameter name for the signature.
      * 
      * @var string
      */
-    protected $signatureQueryParameter;
+    protected $signatureParameter;
 
     /**
      * @param string $signatureKey
-     * @param string $expirationQueryParameter
-     * @param string $signatureQueryParameter
+     * @param string $expiresParameter
+     * @param string $signatureParameter
      */
-    public function __construct($signatureKey, $expirationQueryParameter = 'e', $signatureQueryParameter = 's')
-    {
+    public function __construct(
+        $signatureKey,
+        $expiresParameter = 'expires',
+        $signatureParameter = 'signature'
+    ) {
         $this->signatureKey = $signatureKey;
-        $this->expirationQueryParameter = $expirationQueryParameter;
-        $this->signatureQueryParameter = $signatureQueryParameter;
+        $this->expiresParameter = $expiresParameter;
+        $this->signatureParameter = $signatureParameter;
     }
 
     /**
@@ -51,8 +54,8 @@ class SignedUrl
 
         $query = $url->getQuery();
         $query->modify([
-            $this->expirationQueryParameter => $expiration,
-            $this->signatureQueryParameter => $signature
+            $this->expiresParameter => $expiration,
+            $this->signatureParameter => $signature
         ]);
 
         $signedUrl = $url->setQuery($query);
@@ -73,15 +76,21 @@ class SignedUrl
 
         $query = $url->getQuery();
 
-        if (!isset($query['e']) || !isset($query['s'])) {
+        if (
+            !isset($query[$this->expiresParameter]) ||
+            !isset($query[$this->signatureParameter])
+        ) {
             return false;
         }
 
-        $expiration = $query['e'];
-        $signature = $query['s'];
+        $expiration = $query[$this->expiresParameter];
+        $signature = $query[$this->signatureParameter];
 
         $intendedQuery = $url->getQuery();
-        $intendedQuery->modify(['e' => null, 's' => null]);
+        $intendedQuery->modify([
+            $this->expiresParameter => null,
+            $this->signatureParameter => null
+        ]);
         $intendedUrl = $url->setQuery($intendedQuery);
 
         $match = $this->createSignature((string) $intendedUrl, $expiration);
@@ -103,16 +112,26 @@ class SignedUrl
     protected function getExpirationTimestamp($expiration)
     {
         if ($expiration instanceof DateTime) {
+            
+            if ($expiration->getTimestamp() - (new DateTime)->getTimestamp() <= 0) {
+                throw new InvalidExpiration("Expiration date must be in the future");
+            }
+
             return (string) $expiration->getTimestamp();
         }
 
         if (is_int($expiration)) {
+
+            if ($expiration <= 0) {
+                throw new InvalidExpiration("Expiration date must be in the future");
+            }
+
             return (string) (new DateTime)
                 ->modify((int) $expiration . ' days')
                 ->getTimestamp();
         }
 
-        throw new InvalidExpiration;
+        throw new InvalidExpiration("Expiration date must be an instance of \DateTime or an integer");
     }
 
     /**

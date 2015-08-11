@@ -81,7 +81,7 @@ class SignedUrl
         }
 
         $expiration = $query[$this->expiresParameter];
-        $signature = $query[$this->signatureParameter];
+        $signatureFromUrl = $query[$this->signatureParameter];
 
         $intendedQuery = $url->getQuery();
         $intendedQuery->modify([
@@ -90,9 +90,9 @@ class SignedUrl
         ]);
         $intendedUrl = $url->setQuery($intendedQuery);
 
-        $match = $this->createSignature((string) $intendedUrl, $expiration);
+        $validSignature = $this->createSignature((string) $intendedUrl, $expiration);
 
-        return $signature === $match;
+        return $signatureFromUrl === $validSignature;
     }
 
     /**
@@ -126,7 +126,7 @@ class SignedUrl
                 ->getTimestamp();
         }
 
-        throw new InvalidExpiration("Expiration date must be an instance of \DateTime or an integer");
+        throw new InvalidExpiration("Expiration date must be an instance of DateTime or an integer");
     }
 
     /**

@@ -9,15 +9,15 @@ use Spatie\SignedUrl\Exceptions\InvalidExpiration;
 class SignedUrl
 {
     /**
-     * The url's query parameter name for the expiration.
-     * 
+     * The URL's query parameter name for the expiration.
+     *
      * @var string
      */
     protected $expiresParameter;
 
     /**
-     * The url's query parameter name for the signature.
-     * 
+     * The URL's query parameter name for the signature.
+     *
      * @var string
      */
     protected $signatureParameter;
@@ -27,11 +27,8 @@ class SignedUrl
      * @param string $expiresParameter
      * @param string $signatureParameter
      */
-    public function __construct(
-        $signatureKey,
-        $expiresParameter = 'expires',
-        $signatureParameter = 'signature'
-    ) {
+    public function __construct($signatureKey, $expiresParameter = 'expires', $signatureParameter = 'signature')
+    {
         $this->signatureKey = $signatureKey;
         $this->expiresParameter = $expiresParameter;
         $this->signatureParameter = $signatureParameter;
@@ -55,7 +52,7 @@ class SignedUrl
         $query = $url->getQuery();
         $query->modify([
             $this->expiresParameter => $expiration,
-            $this->signatureParameter => $signature
+            $this->signatureParameter => $signature,
         ]);
 
         $signedUrl = $url->setQuery($query);
@@ -65,9 +62,9 @@ class SignedUrl
 
     /**
      * Validate a signed url.
-     * 
+     *
      * @param string $url
-     * 
+     *
      * @return bool
      */
     public function validate($url)
@@ -89,7 +86,7 @@ class SignedUrl
         $intendedQuery = $url->getQuery();
         $intendedQuery->modify([
             $this->expiresParameter => null,
-            $this->signatureParameter => null
+            $this->signatureParameter => null,
         ]);
         $intendedUrl = $url->setQuery($intendedQuery);
 
@@ -102,8 +99,8 @@ class SignedUrl
      * Retrieve the expiration timestamp for a link based on an absolute DateTime or a relative number of days.
      *
      * @param \DateTime|int $expiration The expiration date of this link.
-     *                                   - DateTime: The value will be used as expiration date
-     *                                   - int: The expiration time will be set to X days from now
+     *                                  - DateTime: The value will be used as expiration date
+     *                                  - int: The expiration time will be set to X days from now
      *
      * @return string
      *
@@ -112,22 +109,20 @@ class SignedUrl
     protected function getExpirationTimestamp($expiration)
     {
         if ($expiration instanceof DateTime) {
-            
-            if ($expiration->getTimestamp() - (new DateTime)->getTimestamp() <= 0) {
-                throw new InvalidExpiration("Expiration date must be in the future");
+            if ($expiration->getTimestamp() - (new DateTime())->getTimestamp() <= 0) {
+                throw new InvalidExpiration('Expiration date must be in the future');
             }
 
             return (string) $expiration->getTimestamp();
         }
 
         if (is_int($expiration)) {
-
             if ($expiration <= 0) {
-                throw new InvalidExpiration("Expiration date must be in the future");
+                throw new InvalidExpiration('Expiration date must be in the future');
             }
 
-            return (string) (new DateTime)
-                ->modify((int) $expiration . ' days')
+            return (string) (new DateTime())
+                ->modify((int) $expiration.' days')
                 ->getTimestamp();
         }
 
@@ -136,10 +131,10 @@ class SignedUrl
 
     /**
      * Generate a token to identify the secure action.
-     * 
+     *
      * @param string $url
      * @param string $expiration
-     * 
+     *
      * @return string
      */
     protected function createSignature($url, $expiration)

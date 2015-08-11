@@ -9,14 +9,14 @@ use Spatie\SignedUrl\Exceptions\InvalidExpiration;
 class SignedUrl
 {
     /**
-     * The url's query parameter name for the expiration.
+     * The URL's query parameter name for the expiration.
      *
      * @var string
      */
     protected $expirationQueryParameter;
 
     /**
-     * The url's query parameter name for the signature.
+     * The URL's query parameter name for the signature.
      *
      * @var string
      */

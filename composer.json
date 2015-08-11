@@ -7,7 +7,7 @@
         "encryption",
         "url"
     ],
-    "homepage": "https://github.com/spatie/signedurl",
+    "homepage": "https://github.com/spatie/signed-url",
     "license": "MIT",
     "authors": [
         {

@@ -27,7 +27,7 @@ $ composer require spatie/signedurl
 
 ## Usage
 
-A`Spatie\SignedUrl\SignedUrl`-object can generate and validate signed URLs. The secret key is to
+A`Spatie\SignedUrl\SignedUrl`-object can generate and validate signed URLs. The secret key is used to
 generate signatures.
 
 ```php

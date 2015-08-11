@@ -12,13 +12,7 @@ Generate a url with an expiration date and signature to prevent unauthorized acc
 
 Via Composer
 
-``` bash
-$ composer require spatie/signedurl
 ```
-
-You can install the package via Composer:
-
-```bash
 $ composer require spatie/signedurl
 ```
 

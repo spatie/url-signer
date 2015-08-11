@@ -75,7 +75,7 @@ $signedUrl->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd0
 The tests are written in phpspec.
 
 ```
-$ phpspec run
+$ vendor/bin/phpspec run
 ```
 
 ## Changelog

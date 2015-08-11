@@ -1,9 +1,11 @@
 {
-    "name": "spatie/signedurl",
+    "name": "spatie/signed-url",
     "description": "Generate a url with an expiration date and signature to prevent unauthorized access",
     "keywords": [
         "spatie",
-        "signedurl"
+        "security",
+        "encryption",
+        "url"
     ],
     "homepage": "https://github.com/spatie/signedurl",
     "license": "MIT",

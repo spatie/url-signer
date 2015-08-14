@@ -7,7 +7,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/988b37a0-2f23-4e0f-95a1-b81753d8b474/mini.png)](https://insight.sensiolabs.com/projects/988b37a0-2f23-4e0f-95a1-b81753d8b474)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
 
-This package can create URLs with a limited lifetime. This is done by adding an expiration date
+This package can create URLs with a limited lifetime. This is done by adding an expiration date and a signature
 to the URL.
 
 ```php

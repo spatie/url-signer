@@ -1,4 +1,4 @@
-# Create secured URLs with a limited lifetime.
+# Create secured URLs with a limited lifetime
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)

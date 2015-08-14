@@ -17,13 +17,13 @@ $urlSigner->sign('https://myapp.com', 30);
 // => The generated url will be valid for 30 days
 ```
 
-This will output an URL that looks like `https://myapp.com/?expires=1439223344&signature=2d42f65bd023362c6b61f7432705d811`.
+This will output an URL that looks like `https://myapp.com/?expires=xxxx&signature=xxxx`.
 
 Image that this URL gets mailed out to the users of your application. When a user clicks on a signed URL
 your application can validate it with:
 
 ```php
-$urlSigner->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd023362c6b61f7432705d811');
+$urlSigner->validate('https://myapp.com/?expires=xxxx&signature=xxxx');
 ```
 
 Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).

@@ -57,8 +57,8 @@ class SignedUrl
      * Add expiration and signature query parameters to an url.
      *
      * @param \League\Url\UrlImmutable $url
-     * @param string $expiration
-     * @param string $signature
+     * @param string                   $expiration
+     * @param string                   $signature
      *
      * @return \League\Url\UrlImmutable
      */
@@ -94,17 +94,12 @@ class SignedUrl
         }
 
         $expiration = $query[$this->expiresParameter];
-        $providedSignature = $query[$this->signatureParameter];
 
-        if ($this->isExpired($expiration)) {
-            return false;
-        }
+        if (!$this->isFuture($expiration)) return false;
 
-        $intendedUrl = $this->getIntendedUrl($url);
+        if (!$this->hasValidSignature($url)) return false;
 
-        $validSignature = $this->createSignature($intendedUrl, $expiration);
-
-        return $providedSignature === $validSignature;
+        return true;
     }
 
     /**
@@ -128,15 +123,15 @@ class SignedUrl
     }
 
     /**
-     * Check if an expiration date is expired.
+     * Check if an a timestamp is in the past.
      *
-     * @param int $expiration
+     * @param int $timestamp
      *
      * @return bool
      */
-    protected function isExpired($expiration)
+    protected function isFuture($timestamp)
     {
-        return (int) $expiration < (new DateTime())->getTimestamp();
+        return ((int) $timestamp) >= (new DateTime())->getTimestamp();
     }
 
     /**
@@ -149,6 +144,7 @@ class SignedUrl
     protected function getIntendedUrl(UrlImmutable $url)
     {
         $intendedQuery = $url->getQuery();
+
         $intendedQuery->modify([
             $this->expiresParameter => null,
             $this->signatureParameter => null,
@@ -172,25 +168,19 @@ class SignedUrl
      */
     protected function getExpirationTimestamp($expiration)
     {
-        if ($expiration instanceof DateTime) {
-            if ($expiration->getTimestamp() - (new DateTime())->getTimestamp() <= 0) {
-                throw new InvalidExpiration('Expiration date must be in the future');
-            }
-
-            return (string) $expiration->getTimestamp();
-        }
-
         if (is_int($expiration)) {
-            if ($expiration <= 0) {
-                throw new InvalidExpiration('Expiration date must be in the future');
-            }
-
-            return (string) (new DateTime())
-                ->modify((int) $expiration.' days')
-                ->getTimestamp();
+            $expiration = (new DateTime())->modify((int) $expiration.' days');
         }
 
-        throw new InvalidExpiration('Expiration date must be an instance of DateTime or an integer');
+        if (!$expiration instanceof DateTime) {
+            throw new InvalidExpiration('Expiration date must be an instance of DateTime or an integer');
+        }
+
+        if (!$this->isFuture($expiration->getTimestamp())) {
+            throw new InvalidExpiration('Expiration date must be in the future');
+        }
+
+        return (string) $expiration->getTimestamp();
     }
 
     /**
@@ -206,5 +196,26 @@ class SignedUrl
         $url = (string) $url;
 
         return md5("{$url}::{$expiration}::{$this->signatureKey}");
+    }
+
+    /**
+     * Determine if the url has a forged signature.
+     *
+     * @param \League\Url\UrlImmutable $url
+     *
+     * @return bool
+     */
+    protected function hasValidSignature(UrlImmutable $url)
+    {
+        $query = $url->getQuery();
+
+        $expiration = $query[$this->expiresParameter];
+        $providedSignature = $query[$this->signatureParameter];
+
+        $intendedUrl = $this->getIntendedUrl($url);
+
+        $validSignature = $this->createSignature($intendedUrl, $expiration);
+
+        return $providedSignature === $validSignature;
     }
 }

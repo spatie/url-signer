@@ -7,12 +7,13 @@ use DateTimeZone;
 use League\Url\UrlImmutable;
 use PhpSpec\ObjectBehavior;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
+use Spatie\UrlSigner\MD5UrlSigner;
 use Spatie\UrlSigner\UrlSigner;
 
 /**
  * @mixin \Spatie\UrlSigner\UrlSigner
  */
-class UrlSignerSpec extends ObjectBehavior
+class MD5UrlSignerSpec extends ObjectBehavior
 {
     public function let()
     {
@@ -21,7 +22,8 @@ class UrlSignerSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType(UrlSigner::class);
+        $this->shouldHaveType(MD5UrlSigner::class);
+        $this->shouldImplement(UrlSigner::class);
     }
 
     public function it_returns_true_when_validating_a_valid_url()

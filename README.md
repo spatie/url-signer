@@ -6,13 +6,20 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/signedurl.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/signedurl)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/signedurl.svg?style=flat-square)](https://packagist.org/packages/spatie/signedurl)
 
-This package can create URLs with a limited lifetime.
+This package can create URLs with a limited lifetime. This is done by adding an expiration date
+to the URL.
 
 ```php
 echo $signedUrl->sign('https://myapp.com', 30);
 // => The generated url will be valid for 30 days
 ```
-This will output an URL not unlike `https://myapp.com/?expires=1439223344&signature=2d42f65bd023362c6b61f7432705d811`.
+This will output an URL that looks like `https://myapp.com/?expires=1439223344&signature=2d42f65bd023362c6b61f7432705d811`.
+
+Image that this URL gets mailed out to the users of your application. When a user clicks on a signed URL
+your application can validate it with:
+```php
+$signedUrl->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd023362c6b61f7432705d811');
+```
 
 Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all
 our open source projects [on our website](https://spatie.be/opensource).

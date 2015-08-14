@@ -37,7 +37,7 @@ $ composer require spatie/url-signer
 
 ## Usage
 
-A `Spatie\UrlSigner\UrlSigner`-object can sign and validate signed URLs. The secret key is used to generate signatures. This package provides an MD5 implementation (`Spatie\UrlSigner\MD5UrlSigner`).
+A signer-object can sign URLs and validate signed URLs. A secret key is used to generate signatures.
 
 ```php
 use Spatie\UrlSigner\MD5UrlSigner;
@@ -79,9 +79,14 @@ $urlSigner->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd0
 // => false
 ```
 
+## Writing custom signers
+This packages provides a signer that uses md5 to generate signature. You can create your own
+signer by implementing the `Spatie\UrlSigner\UrlSigner`-interface. If you let your signer extend
+`Spatie\UrlSigner\BaseUrlSigner` you'll only need to provide the `createSignature`-method.
+
 ## Tests
 
-Tests are written in phpspec.
+The tests can be run with:
 
 ```
 $ vendor/bin/phpspec run

@@ -89,9 +89,7 @@ class SignedUrl
 
         $query = $url->getQuery();
 
-        if ($this->isMissingAQueryParameter($query)) {
-            return false;
-        }
+        if ($this->isMissingAQueryParameter($query)) return false;
 
         $expiration = $query[$this->expiresParameter];
 

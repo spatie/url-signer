@@ -1,4 +1,4 @@
-# Signed URL
+# Create URLs with a limited lifetime.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/signedurl.svg?style=flat-square)](https://packagist.org/packages/spatie/signedurl)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -6,7 +6,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/signedurl.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/signedurl)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/signedurl.svg?style=flat-square)](https://packagist.org/packages/spatie/signedurl)
 
-This package can generate a URLs with an expiration date and signature to prevent unauthorized access.
+This package can create URLs with a limited lifetime.
 
 ```php
 echo $signedUrl->sign('https://myapp.com', 30);
@@ -28,7 +28,7 @@ $ composer require spatie/signedurl
 ## Usage
 
 A`Spatie\SignedUrl\SignedUrl`-object can sign and validate signed URLs. The secret key is used to
-sign signatures.
+generate signatures.
 
 ```php
 use Spatie\SignedUrl\SignedUrl;

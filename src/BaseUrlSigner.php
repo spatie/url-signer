@@ -10,6 +10,13 @@ use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 abstract class BaseUrlSigner implements UrlSigner
 {
     /**
+     * The key that is used to generate secure signatures.
+     *
+     * @var string
+     */
+    protected $signatureKey;
+
+    /**
      * The URL's query parameter name for the expiration.
      *
      * @var string

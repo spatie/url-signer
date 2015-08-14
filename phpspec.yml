@@ -1,5 +1,5 @@
 suites:
     searchindex_suite:
-        namespace: Spatie\SignedUrl
-        psr4_prefix: Spatie\SignedUrl
+        namespace: Spatie\UrlSigner
+        psr4_prefix: Spatie\UrlSigner
         src_path: src

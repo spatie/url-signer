@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\SignedUrl;
+namespace Spatie\UrlSigner;
 
 use DateTime;
 use League\Url\Components\QueryInterface;
 use League\Url\UrlImmutable;
-use Spatie\SignedUrl\Exceptions\InvalidExpiration;
+use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 
-class SignedUrl
+class UrlSigner
 {
     /**
      * The URL's query parameter name for the expiration.
@@ -71,9 +71,9 @@ class SignedUrl
             $this->signatureParameter => $signature,
         ]);
 
-        $signedUrl = $url->setQuery($query);
+        $urlSigner = $url->setQuery($query);
 
-        return $signedUrl;
+        return $urlSigner;
     }
 
     /**
@@ -133,7 +133,7 @@ class SignedUrl
     }
 
     /**
-     * Retrieve the intended URL by stripping off the SignedUrl specific parameters.
+     * Retrieve the intended URL by stripping off the UrlSigner specific parameters.
      *
      * @param \League\Url\UrlImmutable $url
      *
@@ -162,7 +162,7 @@ class SignedUrl
      *
      * @return string
      *
-     * @throws \Spatie\SignedUrl\Exceptions\InvalidExpiration
+     * @throws \Spatie\UrlSigner\Exceptions\InvalidExpiration
      */
     protected function getExpirationTimestamp($expiration)
     {

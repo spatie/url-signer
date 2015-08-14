@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\SignedUrl\Exceptions;
+namespace Spatie\UrlSigner\Exceptions;
 
 class InvalidExpiration extends \Exception
 {

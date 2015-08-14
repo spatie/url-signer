@@ -1,18 +1,18 @@
 <?php
 
-namespace spec\Spatie\SignedUrl;
+namespace spec\Spatie\UrlSigner;
 
 use DateTime;
 use DateTimeZone;
 use League\Url\UrlImmutable;
 use PhpSpec\ObjectBehavior;
-use Spatie\SignedUrl\Exceptions\InvalidExpiration;
-use Spatie\SignedUrl\SignedUrl;
+use Spatie\UrlSigner\Exceptions\InvalidExpiration;
+use Spatie\UrlSigner\UrlSigner;
 
 /**
- * @mixin \Spatie\SignedUrl\SignedUrl
+ * @mixin \Spatie\UrlSigner\UrlSigner
  */
-class SignedUrlSpec extends ObjectBehavior
+class UrlSignerSpec extends ObjectBehavior
 {
     public function let()
     {
@@ -21,28 +21,28 @@ class SignedUrlSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType(SignedUrl::class);
+        $this->shouldHaveType(UrlSigner::class);
     }
 
     public function it_returns_true_when_validating_a_valid_url()
     {
-        $signedUrl = 'http://myapp.com/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859';
+        $urlSigner = 'http://myapp.com/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859';
 
-        $this->validate($signedUrl)->shouldBeTrue();
+        $this->validate($urlSigner)->shouldBeTrue();
     }
 
     public function it_returns_false_when_validating_a_forged_url()
     {
-        $signedUrl = 'http://myapp.com/somewhereelse/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859';
+        $urlSigner = 'http://myapp.com/somewhereelse/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859';
 
-        $this->validate($signedUrl)->shouldBeFalse();
+        $this->validate($urlSigner)->shouldBeFalse();
     }
 
     public function it_returns_false_when_validating_an_expired_url()
     {
-        $signedUrl = 'http://myapp.com/?expires=1123690544&signature=93e02326d7572632dd6edfa2665f2743';
+        $urlSigner = 'http://myapp.com/?expires=1123690544&signature=93e02326d7572632dd6edfa2665f2743';
 
-        $this->validate($signedUrl)->shouldBeFalse();
+        $this->validate($urlSigner)->shouldBeFalse();
     }
 
     public function it_returns_false_when_validating_an_unsigned_url()
@@ -63,13 +63,13 @@ class SignedUrlSpec extends ObjectBehavior
             'signature' => '41d5c3a92c6ef94e73cb70c7dcda0859',
         ];
 
-        $signedUrl = $this->sign($url, $expiration);
+        $urlSigner = $this->sign($url, $expiration);
 
-        $signedUrl->shouldBe($results['url']);
-        $signedUrl->shouldHaveExpiration($results['expiration']);
-        $signedUrl->shouldHaveSignature($results['signature']);
+        $urlSigner->shouldBe($results['url']);
+        $urlSigner->shouldHaveExpiration($results['expiration']);
+        $urlSigner->shouldHaveSignature($results['signature']);
 
-        $this->validate($signedUrl)->shouldBeTrue();
+        $this->validate($urlSigner)->shouldBeTrue();
     }
 
     public function it_does_a_strict_check_on_expirations()
@@ -103,13 +103,13 @@ class SignedUrlSpec extends ObjectBehavior
             'signature' => 'ba4c8221ecadb2316b796eb65059fa41',
         ];
 
-        $signedUrl = $this->sign($url, $expiration);
+        $urlSigner = $this->sign($url, $expiration);
 
-        $signedUrl->shouldBe($results['url']);
-        $signedUrl->shouldHaveExpiration($results['expiration']);
-        $signedUrl->shouldHaveSignature($results['signature']);
+        $urlSigner->shouldBe($results['url']);
+        $urlSigner->shouldHaveExpiration($results['expiration']);
+        $urlSigner->shouldHaveSignature($results['signature']);
 
-        $this->validate($signedUrl)->shouldBeTrue();
+        $this->validate($urlSigner)->shouldBeTrue();
     }
 
     public function it_can_sign_a_valid_signed_url_that_expires_after_a_relative_amount_of_days()
@@ -121,11 +121,11 @@ class SignedUrlSpec extends ObjectBehavior
             'expiration' => (new DateTime())->modify('30 days')->getTimestamp(),
         ];
 
-        $signedUrl = $this->sign($url, $expiration);
+        $urlSigner = $this->sign($url, $expiration);
 
-        $signedUrl->shouldHaveExpirationAround($results['expiration']);
+        $urlSigner->shouldHaveExpirationAround($results['expiration']);
 
-        $this->validate($signedUrl)->shouldBeTrue();
+        $this->validate($urlSigner)->shouldBeTrue();
     }
 
     public function getMatchers()

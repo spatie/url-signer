@@ -1,5 +1,5 @@
 {
-    "name": "spatie/signed-url",
+    "name": "spatie/url-signer",
     "description": "Generate a url with an expiration date and signature to prevent unauthorized access",
     "keywords": [
         "spatie",
@@ -7,7 +7,7 @@
         "encryption",
         "url"
     ],
-    "homepage": "https://github.com/spatie/signed-url",
+    "homepage": "https://github.com/spatie/url-signer",
     "license": "MIT",
     "authors": [
         {
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\SignedUrl\\": "src"
+            "Spatie\\UrlSigner\\": "src"
         }
     },
     "scripts": {

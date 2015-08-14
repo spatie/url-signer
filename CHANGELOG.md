@@ -1,6 +1,6 @@
 #Changelog
 
-All Notable changes to `signed-url` will be documented in this file
+All Notable changes to `url-signer` will be documented in this file
 
 # 1.0.0
 - First release

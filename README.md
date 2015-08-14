@@ -13,6 +13,7 @@ to the URL.
 $urlSigner = new MD5UrlSigner('randomkey');
 
 $urlSigner->sign('https://myapp.com', 30);
+
 // => The generated url will be valid for 30 days
 ```
 

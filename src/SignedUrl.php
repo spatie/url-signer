@@ -43,7 +43,7 @@ class SignedUrl
      *
      * @return string
      */
-    public function generate($url, $expiration)
+    public function sign($url, $expiration)
     {
         $url = UrlImmutable::createFromUrl($url);
 

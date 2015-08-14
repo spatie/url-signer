@@ -51,7 +51,7 @@ class SignedUrlSpec extends ObjectBehavior
         $this->validate('http://myapp.com/?signature=41d5c3a92c6ef94e73cb70c7dcda0859')->shouldBeFalse();
     }
 
-    public function it_can_generate_a_valid_signed_url_that_expires_at_a_certain_time()
+    public function it_can_sign_a_valid_signed_url_that_expires_at_a_certain_time()
     {
         $url = 'http://myapp.com';
         $expiration = DateTime::createFromFormat('d/m/Y H:i:s', '10/08/2115 18:15:44',
@@ -63,7 +63,7 @@ class SignedUrlSpec extends ObjectBehavior
             'signature' => '41d5c3a92c6ef94e73cb70c7dcda0859',
         ];
 
-        $signedUrl = $this->generate($url, $expiration);
+        $signedUrl = $this->sign($url, $expiration);
 
         $signedUrl->shouldBe($results['url']);
         $signedUrl->shouldHaveExpiration($results['expiration']);
@@ -77,7 +77,7 @@ class SignedUrlSpec extends ObjectBehavior
         $url = 'http://myapp.com';
         $expiration = '30';
 
-        $this->shouldThrow(InvalidExpiration::class)->duringGenerate($url, $expiration);
+        $this->shouldThrow(InvalidExpiration::class)->duringSign($url, $expiration);
     }
 
     public function it_doesnt_allow_expirations_in_the_past()
@@ -85,10 +85,10 @@ class SignedUrlSpec extends ObjectBehavior
         $url = 'http://myapp.com';
 
         $this->shouldThrow(InvalidExpiration::class)
-            ->duringGenerate($url, DateTime::createFromFormat('d/m/Y H:i:s', '10/08/2005 18:15:44'));
+            ->duringSign($url, DateTime::createFromFormat('d/m/Y H:i:s', '10/08/2005 18:15:44'));
 
         $this->shouldThrow(InvalidExpiration::class)
-            ->duringGenerate($url, -10);
+            ->duringSign($url, -10);
     }
 
     public function it_keeps_the_urls_query_parameters_intact()
@@ -103,7 +103,7 @@ class SignedUrlSpec extends ObjectBehavior
             'signature' => 'ba4c8221ecadb2316b796eb65059fa41',
         ];
 
-        $signedUrl = $this->generate($url, $expiration);
+        $signedUrl = $this->sign($url, $expiration);
 
         $signedUrl->shouldBe($results['url']);
         $signedUrl->shouldHaveExpiration($results['expiration']);
@@ -112,7 +112,7 @@ class SignedUrlSpec extends ObjectBehavior
         $this->validate($signedUrl)->shouldBeTrue();
     }
 
-    public function it_can_generate_a_valid_signed_url_that_expires_after_a_relative_amount_of_days()
+    public function it_can_sign_a_valid_signed_url_that_expires_after_a_relative_amount_of_days()
     {
         $url = 'http://myapp.com';
         $expiration = 30;
@@ -121,7 +121,7 @@ class SignedUrlSpec extends ObjectBehavior
             'expiration' => (new DateTime())->modify('30 days')->getTimestamp(),
         ];
 
-        $signedUrl = $this->generate($url, $expiration);
+        $signedUrl = $this->sign($url, $expiration);
 
         $signedUrl->shouldHaveExpirationAround($results['expiration']);
 
@@ -146,7 +146,7 @@ class SignedUrlSpec extends ObjectBehavior
             },
 
             // Since some expiration timestamps are created internally, we can't match the exact time. We can however
-            // safely assume that the generated expiration is correct if it's within a 5 minute interval of the
+            // safely assume that the signd expiration is correct if it's within a 5 minute interval of the
             // expected result.
             'haveExpirationAround' => function ($subject, $expiration, $expirationParameter = 'expires') {
                 $url = UrlImmutable::createFromUrl($subject);

@@ -5,6 +5,7 @@
         "spatie",
         "security",
         "encryption",
+        "sign";
         "url"
     ],
     "homepage": "https://github.com/spatie/url-signer",

@@ -20,7 +20,7 @@ $urlSigner->sign('https://myapp.com', 30);
 
 This will output an URL that looks like `https://myapp.com/?expires=xxxx&signature=xxxx`.
 
-Image that this URL gets mailed out to the users of your application. When a user clicks on a signed URL
+Imagine mailing this URL out to the users of your application. When a user clicks on a signed URL
 your application can validate it with:
 
 ```php
@@ -92,6 +92,9 @@ The tests can be run with:
 ```
 $ vendor/bin/phpspec run
 ```
+
+##Integrations
+To get started quickly in Laravel you can use the [spatie/laravel-url-signer](https://github.com/spatie/laravel-url-signer) package.
 
 ## Changelog
 

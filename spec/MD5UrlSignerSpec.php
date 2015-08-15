@@ -7,6 +7,7 @@ use DateTimeZone;
 use League\Url\UrlImmutable;
 use PhpSpec\ObjectBehavior;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
+use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
 use Spatie\UrlSigner\MD5UrlSigner;
 use Spatie\UrlSigner\UrlSigner;
 
@@ -24,6 +25,11 @@ class MD5UrlSignerSpec extends ObjectBehavior
     {
         $this->shouldHaveType(MD5UrlSigner::class);
         $this->shouldImplement(UrlSigner::class);
+    }
+
+    public function it_will_throw_an_exception_for_an_empty_signatureKey()
+    {
+        $this->shouldThrow(InvalidSignatureKey::class)->during__construct('');
     }
 
     public function it_returns_true_when_validating_a_valid_url()

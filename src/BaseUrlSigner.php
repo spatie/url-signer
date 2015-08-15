@@ -6,6 +6,7 @@ use DateTime;
 use League\Url\Components\QueryInterface;
 use League\Url\UrlImmutable;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
+use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
 
 abstract class BaseUrlSigner implements UrlSigner
 {
@@ -34,9 +35,15 @@ abstract class BaseUrlSigner implements UrlSigner
      * @param string $signatureKey
      * @param string $expiresParameter
      * @param string $signatureParameter
+     *
+     * @throws InvalidSignatureKey
      */
     public function __construct($signatureKey, $expiresParameter = 'expires', $signatureParameter = 'signature')
     {
+        if ($signatureKey == '') {
+            throw new InvalidSignatureKey('The signature key is empty');
+        }
+
         $this->signatureKey = $signatureKey;
         $this->expiresParameter = $expiresParameter;
         $this->signatureParameter = $signatureParameter;

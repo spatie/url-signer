@@ -94,7 +94,7 @@ $ vendor/bin/phpspec run
 ```
 
 ##Integrations
-To get started quickly in Laravel you can use the [spatie/laravel-url-signer] package.
+To get started quickly in Laravel you can use the [spatie/laravel-url-signer](https://github.com/spatie/laravel-url-signer) package.
 
 ## Changelog
 

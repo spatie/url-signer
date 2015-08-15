@@ -93,6 +93,9 @@ The tests can be run with:
 $ vendor/bin/phpspec run
 ```
 
+##Integrations
+To get started quickly in Laravel you can use the [spatie/laravel-url-signer] package.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

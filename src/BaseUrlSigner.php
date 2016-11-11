@@ -81,7 +81,7 @@ abstract class BaseUrlSigner implements UrlSigner
         $query = $url->getQuery();
 
         $query->modify([
-            $this->expiresParameter => $expiration,
+            $this->expiresParameter   => $expiration,
             $this->signatureParameter => $signature,
         ]);
 
@@ -164,7 +164,7 @@ abstract class BaseUrlSigner implements UrlSigner
         $intendedQuery = $url->getQuery();
 
         $intendedQuery->modify([
-            $this->expiresParameter => null,
+            $this->expiresParameter   => null,
             $this->signatureParameter => null,
         ]);
 
@@ -180,9 +180,9 @@ abstract class BaseUrlSigner implements UrlSigner
      *                                  - DateTime: The value will be used as expiration date
      *                                  - int: The expiration time will be set to X days from now
      *
-     * @return string
-     *
      * @throws \Spatie\UrlSigner\Exceptions\InvalidExpiration
+     *
+     * @return string
      */
     protected function getExpirationTimestamp($expiration)
     {

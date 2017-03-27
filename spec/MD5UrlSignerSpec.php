@@ -66,9 +66,9 @@ class MD5UrlSignerSpec extends ObjectBehavior
             new DateTimeZone('Europe/Brussels'));
 
         $results = [
-            'url' => 'http://myapp.com/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859',
+            'url'        => 'http://myapp.com/?expires=4594900544&signature=41d5c3a92c6ef94e73cb70c7dcda0859',
             'expiration' => '4594900544',
-            'signature' => '41d5c3a92c6ef94e73cb70c7dcda0859',
+            'signature'  => '41d5c3a92c6ef94e73cb70c7dcda0859',
         ];
 
         $urlSigner = $this->sign($url, $expiration);
@@ -106,9 +106,9 @@ class MD5UrlSignerSpec extends ObjectBehavior
             new DateTimeZone('Europe/Brussels'));
 
         $results = [
-            'url' => 'http://myapp.com/?foo=bar&baz=qux&expires=4594900544&signature=ba4c8221ecadb2316b796eb65059fa41',
+            'url'        => 'http://myapp.com/?foo=bar&baz=qux&expires=4594900544&signature=ba4c8221ecadb2316b796eb65059fa41',
             'expiration' => '4594900544',
-            'signature' => 'ba4c8221ecadb2316b796eb65059fa41',
+            'signature'  => 'ba4c8221ecadb2316b796eb65059fa41',
         ];
 
         $urlSigner = $this->sign($url, $expiration);
@@ -159,10 +159,9 @@ class MD5UrlSignerSpec extends ObjectBehavior
             'haveExpirationAround' => function ($subject, $expiration, $expirationParameter = 'expires') {
                 $url = UrlImmutable::createFromUrl($subject);
 
-                return (
+                return
                     $url->getQuery()[$expirationParameter] < $expiration + 60 * 5 &&
-                    $url->getQuery()[$expirationParameter] > $expiration - 60 * 5
-                );
+                    $url->getQuery()[$expirationParameter] > $expiration - 60 * 5;
             },
 
             'haveSignature' => function ($subject, $signature, $signatureQueryParameter = 'signature') {

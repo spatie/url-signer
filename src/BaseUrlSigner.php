@@ -141,7 +141,7 @@ abstract class BaseUrlSigner implements UrlSigner
     }
 
     /**
-     * Check if an a timestamp is in the past.
+     * Check if a timestamp is in the future.
      *
      * @param int $timestamp
      *

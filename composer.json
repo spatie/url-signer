@@ -20,7 +20,8 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "league/url": "^3.3"
+        "league/url": "^3.3",
+        "indigophp/hash-compat": "^1.1"
     },
     "require-dev": {
         "phpspec/phpspec": "^2.2",

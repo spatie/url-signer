@@ -219,6 +219,6 @@ abstract class BaseUrlSigner implements UrlSigner
 
         $validSignature = $this->createSignature($intendedUrl, $expiration);
 
-        return $providedSignature === $validSignature;
+        return hash_equals($validSignature, $providedSignature);
     }
 }

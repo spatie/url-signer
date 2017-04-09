@@ -7,8 +7,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/988b37a0-2f23-4e0f-95a1-b81753d8b474/mini.png)](https://insight.sensiolabs.com/projects/988b37a0-2f23-4e0f-95a1-b81753d8b474)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
 
-This package can create URLs with a limited lifetime. This is done by adding an expiration date and a signature
-to the URL.
+This package can create URLs with a limited lifetime. This is done by adding an expiration date and a signature to the URL.
 
 ```php
 $urlSigner = new MD5UrlSigner('randomkey');
@@ -31,11 +30,11 @@ Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all
 
 ## Postcardware
 
-You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment you are required to send us a postcard from your hometown, mentioning which of our package(s) you are using.
+You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
 
 Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 
-The best postcards will get published on the open source page on our website.
+All postcards are published [on our website](https://spatie.be/en/opensource/postcards).
 
 ## Install
 

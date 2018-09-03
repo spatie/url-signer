@@ -9,7 +9,13 @@
 This package can create URLs with a limited lifetime. This is done by adding an expiration date and a signature to the URL.
 
 ```php
+// Use MD5 URL signer class
 $urlSigner = new MD5UrlSigner('randomkey');
+
+$urlSigner->sign('https://myapp.com', 30);
+
+// Use SH1 URL signer class
+$urlSigner = new SH1UrlSigner('randomkey');
 
 $urlSigner->sign('https://myapp.com', 30);
 
@@ -87,7 +93,7 @@ $urlSigner->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd0
 ```
 
 ## Writing custom signers
-This packages provides a signer that uses md5 to generate signature. You can create your own
+This packages provides a signer that uses md5 and sh1 to generate signature. You can create your own
 signer by implementing the `Spatie\UrlSigner\UrlSigner`-interface. If you let your signer extend
 `Spatie\UrlSigner\BaseUrlSigner` you'll only need to provide the `createSignature`-method.
 

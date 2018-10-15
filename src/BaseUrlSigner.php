@@ -56,6 +56,7 @@ abstract class BaseUrlSigner implements UrlSigner
      * @param \DateTime|int $expiration
      *
      * @return string
+     * @throws InvalidExpiration
      */
     public function sign($url, $expiration)
     {

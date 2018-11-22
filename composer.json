@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": "^7.1",
         "league/url": "^3.3"
     },
     "require-dev": {

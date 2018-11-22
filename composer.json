@@ -19,12 +19,11 @@
         }
     ],
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=7.1",
         "league/url": "^3.3"
     },
     "require-dev": {
-        "phpspec/phpspec": "^2.2",
-        "henrikbjorn/phpspec-code-coverage": "^1.0"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {
@@ -32,7 +31,7 @@
         }
     },
     "scripts": {
-        "test": "phpspec run"
+        "test": "phpunit"
     },
     "extra": {
         "branch-alias": {

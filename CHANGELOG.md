@@ -2,6 +2,10 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+# 1.1.0 - 2020-07-20
+
+- replace league/url with league/uri & league/uri-components (#25)
+
 # 1.0.2 - 2017-04-09
 - use `hash_equals` to avoid timing attacks
 

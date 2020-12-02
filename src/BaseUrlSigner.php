@@ -108,11 +108,11 @@ abstract class BaseUrlSigner implements UrlSigner
 
         $expiration = $query[$this->expiresParameter];
 
-        if (! $this->isFuture($expiration)) {
+        if (!$this->isFuture($expiration)) {
             return false;
         }
 
-        if (! $this->hasValidSignature($url)) {
+        if (!$this->hasValidSignature($url)) {
             return false;
         }
 
@@ -128,11 +128,11 @@ abstract class BaseUrlSigner implements UrlSigner
      */
     protected function isMissingAQueryParameter(array $query)
     {
-        if (! isset($query[$this->expiresParameter])) {
+        if (!isset($query[$this->expiresParameter])) {
             return true;
         }
 
-        if (! isset($query[$this->signatureParameter])) {
+        if (!isset($query[$this->signatureParameter])) {
             return true;
         }
 
@@ -185,11 +185,11 @@ abstract class BaseUrlSigner implements UrlSigner
             $expiration = (new DateTime())->modify((int) $expiration.' days');
         }
 
-        if (! $expiration instanceof DateTime) {
+        if (!$expiration instanceof DateTime) {
             throw new InvalidExpiration('Expiration date must be an instance of DateTime or an integer');
         }
 
-        if (! $this->isFuture($expiration->getTimestamp())) {
+        if (!$this->isFuture($expiration->getTimestamp())) {
             throw new InvalidExpiration('Expiration date must be in the future');
         }
 

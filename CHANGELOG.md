@@ -2,6 +2,10 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+# 1.2.0 - 2020-12-02
+
+- support PHP 8.0
+
 # 1.1.0 - 2020-07-20
 
 - replace league/url with league/uri & league/uri-components (#25)

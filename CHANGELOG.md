@@ -2,6 +2,10 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+# 1.2.1 - 2021-02-05
+
+- improve depdendencies
+
 # 1.2.0 - 2020-12-02
 
 - support PHP 8.0

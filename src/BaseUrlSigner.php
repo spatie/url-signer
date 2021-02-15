@@ -118,6 +118,16 @@ abstract class BaseUrlSigner implements UrlSigner
 
         return true;
     }
+    
+    /**
+     * Generate a token to identify the secure action.
+     *
+     * @param \League\Url\UrlImmutable|string $url
+     * @param string                          $expiration
+     *
+     * @return string
+     */
+    abstract protected function createSignature($url, $expiration);
 
     /**
      * Check if a query is missing a necessary parameter.

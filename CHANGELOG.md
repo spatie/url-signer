@@ -2,6 +2,10 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+# 1.2.2 - 2021-04-20
+
+- add missing abstract method in the BaseUrlSigner (#35)
+
 ## 1.2.1 - 2021-02-05
 
 - improve depdendencies

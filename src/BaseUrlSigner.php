@@ -118,6 +118,16 @@ abstract class BaseUrlSigner implements UrlSigner
 
         return true;
     }
+    
+    /**
+     * Generate a token to identify the secure action.
+     *
+     * @param UriInterface|string $url
+     * @param string              $expiration
+     *
+     * @return string
+     */
+    abstract protected function createSignature($url, string $expiration);
 
     /**
      * Check if a query is missing a necessary parameter.

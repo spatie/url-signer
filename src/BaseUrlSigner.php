@@ -118,7 +118,7 @@ abstract class BaseUrlSigner implements UrlSigner
 
         return true;
     }
-    
+
     /**
      * Generate a token to identify the secure action.
      *

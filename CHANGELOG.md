@@ -2,6 +2,20 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 1.2.3 - 2022-09-20
+
+### What's Changed
+
+- Fix php-cs-fixer by @erikn69 in https://github.com/spatie/url-signer/pull/37
+- Fix bug validating url without query by @emmanuel-tilleuls in https://github.com/spatie/url-signer/pull/38
+
+### New Contributors
+
+- @erikn69 made their first contribution in https://github.com/spatie/url-signer/pull/37
+- @emmanuel-tilleuls made their first contribution in https://github.com/spatie/url-signer/pull/38
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/1.2.2...1.2.3
+
 ## 1.2.2 - 2021-04-20
 
 - add missing abstract method in the BaseUrlSigner (#35)

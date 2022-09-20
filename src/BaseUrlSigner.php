@@ -175,7 +175,7 @@ abstract class BaseUrlSigner implements UrlSigner
         unset($intendedQuery[$this->expiresParameter]);
         unset($intendedQuery[$this->signatureParameter]);
 
-        return $url->withQuery($this->buildQueryStringFromArray($intendedQuery));
+        return $url->withQuery($this->buildQueryStringFromArray($intendedQuery) ?? '');
     }
 
     /**

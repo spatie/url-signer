@@ -64,7 +64,6 @@ it('keep url query parameters intact', function () {
         '10/08/2115 18:15:44',
         new DateTimeZone('Europe/Brussels')
     );
-    $expected = 'https://myapp.com/?foo=bar&baz=qux&expires=4594900544&signature=728971d9fd0682793d2a1e96b734d949';
 
     $urlSigner = new Md5UrlSigner('random_monkey');
     $signedUrl = $urlSigner->sign($url, $expiration);
@@ -77,3 +76,7 @@ dataset('unsignedUrls', [
     ['http://myapp.com/?expires=4594900544'],
     ['http://myapp.com/?signature=41d5c3a92c6ef94e73cb70c7dcda0859'],
 ]);
+
+it('the expiration is measured in seconds', function() {
+
+});

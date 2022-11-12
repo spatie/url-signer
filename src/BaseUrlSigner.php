@@ -3,11 +3,10 @@
 namespace Spatie\UrlSigner;
 
 use DateTime;
-use League\Uri\Http;
-use League\Uri\QueryString;
-use Psr\Http\Message\UriInterface;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
+use Spatie\UrlSigner\Support\Str;
+use Spatie\UrlSigner\Support\Url;
 
 abstract class BaseUrlSigner implements UrlSigner
 {
@@ -34,46 +33,31 @@ abstract class BaseUrlSigner implements UrlSigner
     ): string {
         $signatureKey ??= $this->defaultSignatureKey;
 
-        $url = Http::createFromString($url);
-
         $expiration = $this->getExpirationTimestamp($expiration);
 
-        $signature = $this->createSignature((string) $url, $expiration, $signatureKey);
+        $signature = $this->createSignature($url, $expiration, $signatureKey);
 
-        return (string) $this->signUrl($url, $expiration, $signature);
+        return $this->signUrl($url, $expiration, $signature);
     }
 
-    /**
-     * Add expiration and signature query parameters to an url.
-     *
-     * @param  UriInterface  $url
-     * @param  string  $expiration
-     * @param  string  $signature
-     * @return \League\Url\UrlImmutable
-     */
-    protected function signUrl(UriInterface $url, string $expiration, $signature)
+    protected function signUrl(string $url, string $expiration, $signature): string
     {
-        $query = QueryString::extract($url->getQuery());
-
-        $query[$this->expiresParameterName] = $expiration;
-        $query[$this->signatureParameterName] = $signature;
-
-        return $url->withQuery($this->buildQueryStringFromArray($query));
+        return Url::addQueryParameters($url, [
+            $this->expiresParameterName => $expiration,
+            $this->signatureParameterName => $signature,
+        ]);
     }
 
     public function validate(string $url, string $signatureKey = null): bool
     {
         $signatureKey ??= $this->defaultSignatureKey;
 
-        $url = Http::createFromString($url);
-
-        $query = QueryString::extract($url->getQuery());
-
-        if ($this->isMissingAQueryParameter($query)) {
+        $queryParameters = Url::queryParameters($url);
+        if ($this->isMissingAQueryParameter($queryParameters)) {
             return false;
         }
 
-        $expiration = $query[$this->expiresParameterName];
+        $expiration = $queryParameters[$this->expiresParameterName];
 
         if (! $this->isFuture($expiration)) {
             return false;
@@ -104,57 +88,44 @@ abstract class BaseUrlSigner implements UrlSigner
         return $timestamp >= (new DateTime())->getTimestamp();
     }
 
-    protected function getIntendedUrl(UriInterface $url): UriInterface
+    protected function getIntendedUrl(string $url): string
     {
-        $intendedQuery = QueryString::extract($url->getQuery());
-
-        unset($intendedQuery[$this->expiresParameterName]);
-        unset($intendedQuery[$this->signatureParameterName]);
-
-        return $url->withQuery($this->buildQueryStringFromArray($intendedQuery) ?? '');
+        return Url::withoutParameters($url, [
+            $this->expiresParameterName,
+            $this->signatureParameterName,
+        ]);
     }
 
-    protected function getExpirationTimestamp(DateTime|int $expiration): string
+    protected function getExpirationTimestamp(DateTime|int $expirationInSeconds): string
     {
-        if (is_int($expiration)) {
-            $expiration = (new DateTime())->modify($expiration.' days');
+        if (is_int($expirationInSeconds)) {
+            $expirationInSeconds = (new DateTime())->modify($expirationInSeconds.' seconds');
         }
 
-        if (! $expiration instanceof DateTime) {
+        if (! $expirationInSeconds instanceof DateTime) {
             throw InvalidExpiration::wrongType();
         }
 
-        if (! $this->isFuture($expiration->getTimestamp())) {
+        if (! $this->isFuture($expirationInSeconds->getTimestamp())) {
             throw InvalidExpiration::isInPast();
         }
 
-        return (string) $expiration->getTimestamp();
+        return (string) $expirationInSeconds->getTimestamp();
     }
 
     protected function hasValidSignature(
-        UriInterface|string $url,
-        string $signatureKey
+        string $url,
+        string $signatureKey,
     ): bool {
-        $query = QueryString::extract($url->getQuery());
+        $queryParameters = Url::queryParameters($url);
 
-        $expiration = $query[$this->expiresParameterName];
-        $providedSignature = $query[$this->signatureParameterName];
+        $expiration = $queryParameters[$this->expiresParameterName];
+        $providedSignature = $queryParameters[$this->signatureParameterName];
 
         $intendedUrl = $this->getIntendedUrl($url);
 
         $validSignature = $this->createSignature($intendedUrl, $expiration, $signatureKey);
 
         return hash_equals($validSignature, $providedSignature);
-    }
-
-    protected function buildQueryStringFromArray(array $query): ?string
-    {
-        $buildQuery = [];
-
-        foreach ($query as $key => $value) {
-            $buildQuery[] = [$key, $value];
-        }
-
-        return QueryString::build($buildQuery);
     }
 }

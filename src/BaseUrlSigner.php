@@ -46,10 +46,9 @@ abstract class BaseUrlSigner implements UrlSigner
     /**
      * Add expiration and signature query parameters to an url.
      *
-     * @param UriInterface $url
-     * @param string       $expiration
-     * @param string       $signature
-     *
+     * @param  UriInterface  $url
+     * @param  string  $expiration
+     * @param  string  $signature
      * @return \League\Url\UrlImmutable
      */
     protected function signUrl(UriInterface $url, string $expiration, $signature)
@@ -86,8 +85,6 @@ abstract class BaseUrlSigner implements UrlSigner
 
         return true;
     }
-
-
 
     protected function isMissingAQueryParameter(array $query): bool
     {
@@ -137,8 +134,7 @@ abstract class BaseUrlSigner implements UrlSigner
     protected function hasValidSignature(
         UriInterface|string $url,
         string $signatureKey
-    ): bool
-    {
+    ): bool {
         $query = QueryString::extract($url->getQuery());
 
         $expiration = $query[$this->expiresParameterName];

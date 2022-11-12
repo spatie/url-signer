@@ -5,9 +5,8 @@ use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
 use Spatie\UrlSigner\Md5UrlSigner;
 use Spatie\UrlSigner\UrlSigner;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->urlSigner = new Md5UrlSigner('random_monkey');
-
 });
 
 it('can be initialized', function () {
@@ -78,10 +77,9 @@ it('using a custom key results in a different signed url', function () {
     expect($signedUsingRegularKey)->not()->toBe($signedUsingCustomKey);
 });
 
-it('can sign and validate urls with a custom key', function() {
+it('can sign and validate urls with a custom key', function () {
     $signedUsingCustomKey = $this->urlSigner->sign('https://spatie.be', 5, 'custom-key');
 
     expect($this->urlSigner->validate($signedUsingCustomKey, 'custom-key'))->toBeTrue();
     expect($this->urlSigner->validate($signedUsingCustomKey, 'wrong-custom-key'))->toBeFalse();
-
 });

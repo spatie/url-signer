@@ -33,11 +33,5 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Install Chrome Launcher
-        run: npm install chrome-launcher
-
-      - name: Install Lighthouse
-        run: npm install lighthouse
-
       - name: Execute tests
         run: composer test

@@ -1,6 +1,3 @@
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # Create secured URLs with a limited lifetime
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
@@ -16,7 +13,7 @@ $urlSigner = new MD5UrlSigner('randomkey');
 
 $urlSigner->sign('https://myapp.com', 30);
 
-// => The generated url will be valid for 30 days
+// => The generated url will be valid for 30 seconds
 ```
 
 This will output an URL that looks like `https://myapp.com/?expires=xxxx&signature=xxxx`.
@@ -27,8 +24,6 @@ your application can validate it with:
 ```php
 $urlSigner->validate('https://myapp.com/?expires=xxxx&signature=xxxx');
 ```
-
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Support us
 
@@ -58,9 +53,9 @@ composer require spatie/url-signer
 A signer-object can sign URLs and validate signed URLs. A secret key is used to generate signatures.
 
 ```php
-use Spatie\UrlSigner\MD5UrlSigner;
+use Spatie\UrlSigner\Md5UrlSigner;
 
-$urlSigner = new MD5UrlSigner('mysecretkey');
+$urlSigner = new Md5UrlSigner('mysecretkey');
 ```
 
 ### Generating URLs
@@ -75,12 +70,12 @@ $urlSigner->sign('https://myapp.com', $expirationDate);
 // => The generated url will be valid for 10 days
 ```
 
-If an integer is provided as expiration date, the url will be valid for that amount of days.
+If an integer is provided as expiration date, the url will be valid for that amount of seconds.
 
 ```php
 $urlSigner->sign('https://myapp.com', 30);
 
-// => The generated url will be valid for 30 days
+// => The generated url will be valid for 30 seconds
 ```
 
 ### Validating URLs
@@ -98,6 +93,7 @@ $urlSigner->validate('https://myapp.com/?expires=1439223344&signature=2d42f65bd0
 ```
 
 ## Writing custom signers
+
 This packages provides a signer that uses md5 to generate signature. You can create your own
 signer by implementing the `Spatie\UrlSigner\UrlSigner`-interface. If you let your signer extend
 `Spatie\UrlSigner\BaseUrlSigner` you'll only need to provide the `createSignature`-method.
@@ -107,10 +103,11 @@ signer by implementing the `Spatie\UrlSigner\UrlSigner`-interface. If you let yo
 The tests can be run with:
 
 ```
-$ vendor/bin/phpspec run
+composer test
 ```
 
 ## Integrations
+
 To get started quickly in Laravel you can use the [spatie/laravel-url-signer](https://github.com/spatie/laravel-url-signer) package.
 
 ## Changelog
@@ -127,6 +124,7 @@ If you've found a bug regarding security please mail [security@spatie.be](mailto
 
 ## Credits
 
+- [Freek Van der Herten](https://github.com/freekmurze)
 - [Sebastian De Deyne](https://github.com/sebastiandedeyne)
 - [All Contributors](../../contributors)
 

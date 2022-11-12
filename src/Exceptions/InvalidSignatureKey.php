@@ -2,6 +2,12 @@
 
 namespace Spatie\UrlSigner\Exceptions;
 
-class InvalidSignatureKey extends \Exception
+use Exception;
+
+class InvalidSignatureKey extends Exception
 {
+    public static function signatureEmpty(): self
+    {
+        return new self('The signature key is empty');
+    }
 }

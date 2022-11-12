@@ -36,6 +36,10 @@ class Url
 
         $baseUrl = Str::before($url, '?');
 
+        if (count($urlQueryParameters) === 0) {
+            return $baseUrl;
+        }
+
         return $baseUrl . '?' . http_build_query($urlQueryParameters);
     }
 }

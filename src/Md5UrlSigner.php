@@ -8,8 +8,7 @@ class Md5UrlSigner extends BaseUrlSigner
         string $url,
         string $expiration,
         string $signatureKey
-    ): string
-    {
+    ): string {
         return md5("{$url}::{$expiration}::{$signatureKey}");
     }
 }

@@ -57,7 +57,6 @@ it('does not allow expirations in the past', function ($pastExpiration) {
     [-10],
 ])->throws(InvalidExpiration::class);
 
-
 it('keep url query parameters intact', function () {
     $url = 'https://myapp.com/?foo=bar&baz=qux';
     $expiration = DateTime::createFromFormat(

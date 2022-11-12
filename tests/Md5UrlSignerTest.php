@@ -77,6 +77,5 @@ dataset('unsignedUrls', [
     ['http://myapp.com/?signature=41d5c3a92c6ef94e73cb70c7dcda0859'],
 ]);
 
-it('the expiration is measured in seconds', function() {
-
+it('the expiration is measured in seconds', function () {
 });

@@ -21,14 +21,14 @@ class Url
 
         $baseUrl = Str::before($url, '?');
 
-        return $baseUrl . '?' . http_build_query($allQueryParameters);
+        return $baseUrl.'?'.http_build_query($allQueryParameters);
     }
 
     public static function withoutParameters(string $url, array $unwantedParameterNames = []): string
     {
         $urlQueryParameters = self::queryParameters($url);
 
-        foreach($unwantedParameterNames as $name) {
+        foreach ($unwantedParameterNames as $name) {
             if (array_key_exists($name, $urlQueryParameters)) {
                 unset($urlQueryParameters[$name]);
             }
@@ -36,6 +36,6 @@ class Url
 
         $baseUrl = Str::before($url, '?');
 
-        return $baseUrl . '?' . http_build_query($urlQueryParameters);
+        return $baseUrl.'?'.http_build_query($urlQueryParameters);
     }
 }

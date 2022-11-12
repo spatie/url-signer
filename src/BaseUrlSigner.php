@@ -5,7 +5,6 @@ namespace Spatie\UrlSigner;
 use DateTime;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
-use Spatie\UrlSigner\Support\Str;
 use Spatie\UrlSigner\Support\Url;
 
 abstract class BaseUrlSigner implements UrlSigner

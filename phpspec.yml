@@ -1,5 +1,0 @@
-suites:
-    urlsigner_suite:
-        namespace: Spatie\UrlSigner
-        psr4_prefix: Spatie\UrlSigner
-        src_path: src

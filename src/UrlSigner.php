@@ -2,24 +2,15 @@
 
 namespace Spatie\UrlSigner;
 
+use DateTime;
+
 interface UrlSigner
 {
-    /**
-     * Get a secure URL to a controller action.
-     *
-     * @param string $url
-     * @param mixed  $expiration
-     *
-     * @return string
-     */
-    public function sign($url, $expiration);
+    public function sign(
+        string $url,
+        int|DateTime $expiration,
+        string $signatureKey = null
+    ): string;
 
-    /**
-     * Validate a signed url.
-     *
-     * @param string $url
-     *
-     * @return bool
-     */
-    public function validate($url);
+    public function validate(string $url, string $signatureKey = null): bool;
 }

@@ -58,9 +58,9 @@ composer require spatie/url-signer
 A signer-object can sign URLs and validate signed URLs. A secret key is used to generate signatures.
 
 ```php
-use Spatie\UrlSigner\MD5UrlSigner;
+use Spatie\UrlSigner\Md5UrlSigner;
 
-$urlSigner = new MD5UrlSigner('mysecretkey');
+$urlSigner = new Md5UrlSigner('mysecretkey');
 ```
 
 ### Generating URLs

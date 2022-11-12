@@ -17,7 +17,7 @@ abstract class BaseUrlSigner implements UrlSigner
         protected string $signatureParameterName = 'signature'
     ) {
         if ($this->defaultSignatureKey == '') {
-            throw new InvalidSignatureKey('The signature key is empty');
+            throw InvalidSignatureKey::signatureEmpty();
         }
     }
 
@@ -124,11 +124,11 @@ abstract class BaseUrlSigner implements UrlSigner
         }
 
         if (! $expiration instanceof DateTime) {
-            throw new InvalidExpiration('Expiration date must be an instance of DateTime or an integer');
+            throw InvalidExpiration::wrongType();
         }
 
         if (! $this->isFuture($expiration->getTimestamp())) {
-            throw new InvalidExpiration('Expiration date must be in the future');
+            throw InvalidExpiration::isInPast();
         }
 
         return (string) $expiration->getTimestamp();

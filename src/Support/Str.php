@@ -10,7 +10,7 @@ class Str
             return $fullString;
         }
 
-        return substr($fullString, 0,  strpos($fullString, $character));
+        return substr($fullString, 0, strpos($fullString, $character));
     }
 
     public static function after(string $fullString, string $character): string

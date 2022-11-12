@@ -2,10 +2,10 @@
 
 use Spatie\UrlSigner\Support\Str;
 
-it('can get the string after a string', function(string $string, string $after, string $expected) {
-   $actual = Str::after($string, $after);
+it('can get the string after a string', function (string $string, string $after, string $expected) {
+    $actual = Str::after($string, $after);
 
-   expect($actual)->toBe($expected);
+    expect($actual)->toBe($expected);
 })->with([
     ['https://spatie.be?hey', '?', 'hey'],
     ['https://spatie.be', '?', ''],
@@ -14,7 +14,7 @@ it('can get the string after a string', function(string $string, string $after, 
     ['https://?spatie.be?', '!', ''],
 ]);
 
-it('can get the string before a string', function(string $string, string $after, string $expected) {
+it('can get the string before a string', function (string $string, string $after, string $expected) {
     $actual = Str::before($string, $after);
 
     expect($actual)->toBe($expected);

@@ -2,6 +2,13 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.0.0 - 2022-11-12
+
+- internal rewrite
+- do not rely on League packages anymore
+- lifetime is now in seconds instead of days
+- drop support for older PHP versions
+
 ## 1.2.3 - 2022-09-20
 
 ### What's Changed

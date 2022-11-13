@@ -22,6 +22,7 @@ Imagine mailing this URL out to the users of your application. When a user click
 your application can validate it with:
 
 ```php
+// returns `true` if valid, `false` if not
 $urlSigner->validate('https://myapp.com/?expires=xxxx&signature=xxxx');
 ```
 

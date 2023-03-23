@@ -61,8 +61,10 @@ it('will keep url query parameters intact', function () {
 
     $signedUrl = $this->urlSigner->sign($url, $expiration);
 
-    expect($signedUrl)->toContain('?foo=bar&baz=qux');
-    expect($this->urlSigner->validate($signedUrl))->toBeTrue();
+    expect($signedUrl)
+        ->toContain('?foo=bar&baz=qux')
+        ->and($this->urlSigner->validate($signedUrl))
+        ->toBeTrue();
 });
 
 dataset('unsignedUrls', [
@@ -80,6 +82,8 @@ it('using a custom key results in a different signed url', function () {
 it('can sign and validate urls with a custom key', function () {
     $signedUsingCustomKey = $this->urlSigner->sign('https://spatie.be', 5, 'custom-key');
 
-    expect($this->urlSigner->validate($signedUsingCustomKey, 'custom-key'))->toBeTrue();
-    expect($this->urlSigner->validate($signedUsingCustomKey, 'wrong-custom-key'))->toBeFalse();
+    expect($this->urlSigner->validate($signedUsingCustomKey, 'custom-key'))
+        ->toBeTrue()
+        ->and($this->urlSigner->validate($signedUsingCustomKey, 'wrong-custom-key'))
+        ->toBeFalse();
 });

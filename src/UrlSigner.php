@@ -2,13 +2,13 @@
 
 namespace Spatie\UrlSigner;
 
-use DateTime;
+use DateTimeInterface;
 
 interface UrlSigner
 {
     public function sign(
         string $url,
-        int|DateTime $expiration,
+        int|\DateTimeInterface $expiration,
         string $signatureKey = null
     ): string;
 

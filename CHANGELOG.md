@@ -2,6 +2,20 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.0.1 - 2023-04-05
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/url-signer/pull/41
+- feat: switch DateTime to DateTimeInterface by @pauljosephkrogulec in https://github.com/spatie/url-signer/pull/45
+
+### New Contributors
+
+- @dependabot made their first contribution in https://github.com/spatie/url-signer/pull/41
+- @pauljosephkrogulec made their first contribution in https://github.com/spatie/url-signer/pull/45
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.0.0...2.0.1
+
 ## 2.0.0 - 2022-11-12
 
 - internal rewrite

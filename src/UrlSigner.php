@@ -8,7 +8,7 @@ interface UrlSigner
 {
     public function sign(
         string $url,
-        int|\DateTimeInterface $expiration,
+        int|DateTimeInterface $expiration,
         string $signatureKey = null
     ): string;
 

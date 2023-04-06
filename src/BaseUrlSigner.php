@@ -3,7 +3,6 @@
 namespace Spatie\UrlSigner;
 
 use DateTime;
-use DateTimeInterface;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
 use Spatie\UrlSigner\Support\Url;
@@ -28,7 +27,7 @@ abstract class BaseUrlSigner implements UrlSigner
 
     public function sign(
         string $url,
-        int|DateTimeInterface $expiration,
+        int|DateTime $expiration,
         string $signatureKey = null,
     ): string {
         $signatureKey ??= $this->defaultSignatureKey;
@@ -96,13 +95,13 @@ abstract class BaseUrlSigner implements UrlSigner
         ]);
     }
 
-    protected function getExpirationTimestamp(DateTimeInterface|int $expirationInSeconds): string
+    protected function getExpirationTimestamp(DateTime|int $expirationInSeconds): string
     {
         if (is_int($expirationInSeconds)) {
             $expirationInSeconds = (new DateTime())->modify($expirationInSeconds.' seconds');
         }
 
-        if (! $expirationInSeconds instanceof DateTimeInterface) {
+        if (! $expirationInSeconds instanceof DateTime) {
             throw InvalidExpiration::wrongType();
         }
 

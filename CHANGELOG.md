@@ -2,6 +2,10 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.0.2 - 2023-04-06
+
+- revert breaking change introduced in previous version
+
 ## 2.0.1 - 2023-04-05
 
 ### What's Changed

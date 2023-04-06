@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/spatie/url-signer/master.svg?style=flat-square)](https://travis-ci.org/spatie/url-signer)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/url-signer.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/url-signer)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/url-signer)
 

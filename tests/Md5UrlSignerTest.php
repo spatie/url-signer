@@ -83,3 +83,12 @@ it('can sign and validate urls with a custom key', function () {
     expect($this->urlSigner->validate($signedUsingCustomKey, 'custom-key'))->toBeTrue();
     expect($this->urlSigner->validate($signedUsingCustomKey, 'wrong-custom-key'))->toBeFalse();
 });
+
+it('returns true when validating a non-expired url and the expiration is a DateTimeInterface', function () {
+    $url = 'http://myapp.com';
+
+    $expiration = new DateTimeImmutable('tomorrow');
+    $signedUrl = $this->urlSigner->signWithDateTimeInterface($url, $expiration);
+
+    expect($this->urlSigner->validate($signedUrl))->toBeTrue();
+});

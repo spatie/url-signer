@@ -3,6 +3,7 @@
 namespace Spatie\UrlSigner;
 
 use DateTime;
+use JetBrains\PhpStorm\Deprecated;
 use Spatie\UrlSigner\Exceptions\InvalidExpiration;
 use Spatie\UrlSigner\Exceptions\InvalidSignatureKey;
 use Spatie\UrlSigner\Support\Url;
@@ -25,6 +26,7 @@ abstract class BaseUrlSigner implements UrlSigner
         string $signatureKey,
     ): string;
 
+    #[Deprecated]
     public function sign(
         string $url,
         int|DateTime $expiration,
@@ -33,6 +35,20 @@ abstract class BaseUrlSigner implements UrlSigner
         $signatureKey ??= $this->defaultSignatureKey;
 
         $expiration = $this->getExpirationTimestamp($expiration);
+
+        $signature = $this->createSignature($url, $expiration, $signatureKey);
+
+        return $this->signUrl($url, $expiration, $signature);
+    }
+
+    public function signWithDateTimeInterface(
+        string $url,
+        int|\DateTimeInterface $expiration,
+        string $signatureKey = null,
+    ): string {
+        $signatureKey ??= $this->defaultSignatureKey;
+
+        $expiration = $this->getExpirationTimestampWithDateTimeInterface($expiration);
 
         $signature = $this->createSignature($url, $expiration, $signatureKey);
 
@@ -102,6 +118,23 @@ abstract class BaseUrlSigner implements UrlSigner
         }
 
         if (! $expirationInSeconds instanceof DateTime) {
+            throw InvalidExpiration::wrongType();
+        }
+
+        if (! $this->isFuture($expirationInSeconds->getTimestamp())) {
+            throw InvalidExpiration::isInPast();
+        }
+
+        return (string) $expirationInSeconds->getTimestamp();
+    }
+
+    protected function getExpirationTimestampWithDateTimeInterface(\DateTimeInterface|int $expirationInSeconds): string
+    {
+        if (is_int($expirationInSeconds)) {
+            $expirationInSeconds = (new DateTime())->modify($expirationInSeconds.' seconds');
+        }
+
+        if (! $expirationInSeconds instanceof \DateTimeInterface) {
             throw InvalidExpiration::wrongType();
         }
 

@@ -1,17 +1,14 @@
 <?php
 
-namespace Spatie\UrlSigner;
+namespace Spatie\UrlSigner\Contracts;
 
-use DateTime;
+use DateTimeInterface;
 
-/**
- * @deprecated Use {@see \Spatie\UrlSigner\Contracts\UrlSigner} instead
- */
 interface UrlSigner
 {
     public function sign(
         string $url,
-        int|DateTime $expiration,
+        int|DateTimeInterface $expiration,
         string $signatureKey = null
     ): string;
 

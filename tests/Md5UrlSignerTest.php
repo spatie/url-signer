@@ -13,7 +13,7 @@ it('can be initialized', function () {
     expect($this->urlSigner)->toBeInstanceOf(UrlSigner::class);
 });
 
-it('will throw an exception fro an empty signature key', function () {
+it('will throw an exception for an empty signature key', function () {
     new Md5UrlSigner('');
 })->throws(InvalidSignatureKey::class);
 

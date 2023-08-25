@@ -2,6 +2,20 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.1.0 - 2023-08-25
+
+### What's Changed
+
+- fix typo in test description by @debuqer in https://github.com/spatie/url-signer/pull/52
+- feat: switch to DateTimeInterface by @alanpoulain in https://github.com/spatie/url-signer/pull/53
+
+### New Contributors
+
+- @debuqer made their first contribution in https://github.com/spatie/url-signer/pull/52
+- @alanpoulain made their first contribution in https://github.com/spatie/url-signer/pull/53
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.0.2...2.1.0
+
 ## 2.0.2 - 2023-04-06
 
 - revert breaking change introduced in previous version

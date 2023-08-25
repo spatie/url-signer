@@ -2,16 +2,13 @@
 
 namespace Spatie\UrlSigner;
 
-/**
- * @deprecated Use {@see Sha256UrlSigner} instead
- */
-class Md5UrlSigner extends BaseUrlSigner
+class Sha256UrlSigner extends AbstractUrlSigner
 {
     protected function createSignature(
         string $url,
         string $expiration,
         string $signatureKey
     ): string {
-        return md5("{$url}::{$expiration}::{$signatureKey}");
+        return hash_hmac('sha256', "{$url}::{$expiration}", $signatureKey);
     }
 }

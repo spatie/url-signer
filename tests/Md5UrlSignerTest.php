@@ -83,3 +83,27 @@ it('can sign and validate urls with a custom key', function () {
     expect($this->urlSigner->validate($signedUsingCustomKey, 'custom-key'))->toBeTrue();
     expect($this->urlSigner->validate($signedUsingCustomKey, 'wrong-custom-key'))->toBeFalse();
 });
+
+it('can sign url which has special characters in the query parameters', function ($url) {
+    $expiration = 100;
+
+    $signedUrl = $this->urlSigner->sign($url, $expiration);
+
+    expect($this->urlSigner->validate($signedUrl))->toBeTrue();
+})->with([
+    ['https://myapp.com/?foo=bar baz'],
+    ['https://myapp.com/?foo=bar%20baz'],
+    ['https://myapp.com/?foo=bar@baz.com'],
+]);
+
+it('can sign url which has reserved query parameters', function ($url) {
+    $expiration = 100;
+
+    $signedUrl = $this->urlSigner->sign($url, $expiration);
+
+    expect($this->urlSigner->validate($signedUrl))->toBeTrue();
+})->with([
+    ['https://myapp.com/?foo=bar&expires=100&signature=abc123'],
+    ['https://myapp.com/?foo=bar&expires=100'],
+    ['https://myapp.com/?foo=bar&signature=abc123'],
+]);

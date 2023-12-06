@@ -12,8 +12,8 @@ interface UrlSigner
     public function sign(
         string $url,
         int|DateTime $expiration,
-        string $signatureKey = null
+        ?string $signatureKey = null
     ): string;
 
-    public function validate(string $url, string $signatureKey = null): bool;
+    public function validate(string $url, ?string $signatureKey = null): bool;
 }

@@ -30,7 +30,7 @@ abstract class AbstractUrlSigner implements UrlSignerContract
     public function sign(
         string $url,
         int|DateTimeInterface $expiration,
-        string $signatureKey = null,
+        ?string $signatureKey = null,
     ): string {
         $signatureKey ??= $this->defaultSignatureKey;
 
@@ -51,7 +51,7 @@ abstract class AbstractUrlSigner implements UrlSignerContract
         ]);
     }
 
-    public function validate(string $url, string $signatureKey = null): bool
+    public function validate(string $url, ?string $signatureKey = null): bool
     {
         $signatureKey ??= $this->defaultSignatureKey;
 

@@ -31,7 +31,7 @@ abstract class BaseUrlSigner implements UrlSigner
     public function sign(
         string $url,
         int|DateTime $expiration,
-        string $signatureKey = null,
+        ?string $signatureKey = null,
     ): string {
         $signatureKey ??= $this->defaultSignatureKey;
 
@@ -52,7 +52,7 @@ abstract class BaseUrlSigner implements UrlSigner
         ]);
     }
 
-    public function validate(string $url, string $signatureKey = null): bool
+    public function validate(string $url, ?string $signatureKey = null): bool
     {
         $signatureKey ??= $this->defaultSignatureKey;
 

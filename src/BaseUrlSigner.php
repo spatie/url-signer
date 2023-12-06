@@ -37,9 +37,11 @@ abstract class BaseUrlSigner implements UrlSigner
 
         $expiration = $this->getExpirationTimestamp($expiration);
 
-        $signature = $this->createSignature($url, $expiration, $signatureKey);
+        $normalizedUrl = $this->getIntendedUrl($url);
 
-        return $this->signUrl($url, $expiration, $signature);
+        $signature = $this->createSignature($normalizedUrl, $expiration, $signatureKey);
+
+        return $this->signUrl($normalizedUrl, $expiration, $signature);
     }
 
     protected function signUrl(string $url, string $expiration, $signature): string

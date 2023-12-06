@@ -2,6 +2,18 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.1.1 - 2023-12-06
+
+### What's Changed
+
+* Bugfix/consistent urlencoding by @Carobit in https://github.com/spatie/url-signer/pull/57
+
+### New Contributors
+
+* @Carobit made their first contribution in https://github.com/spatie/url-signer/pull/57
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.1.0...2.1.1
+
 ## 2.1.0 - 2023-08-25
 
 ### What's Changed

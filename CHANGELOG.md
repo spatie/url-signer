@@ -2,6 +2,20 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.1.3 - 2025-02-14
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/url-signer/pull/64
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/url-signer/pull/65
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/url-signer/pull/66
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/url-signer/pull/66
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.1.2...2.1.3
+
 ## 2.1.2 - 2025-01-14
 
 ### What's Changed

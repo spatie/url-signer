@@ -2,6 +2,14 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.2.0 - 2026-10-11
+
+### What's Changed
+
+* Drop support for PHP 8.1
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.1.4...2.2.0
+
 ## 2.1.4 - 2026-10-11
 
 ### What's Changed

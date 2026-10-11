@@ -12,12 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: [8.1, 8.2, 8.3, 8.4, 8.5]
+        php: [8.2, 8.3, 8.4, 8.5]
         stability: [prefer-stable]
-        include:
-          # Pest 2 is the last version supporting PHP 8.1 and only allows PHPUnit versions that have a security advisory
-          - php: 8.1
-            composer-flags: --no-security-blocking
 
     name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -38,7 +34,7 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
-        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction ${{ matrix.composer-flags }}
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: composer test

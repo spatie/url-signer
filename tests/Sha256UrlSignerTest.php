@@ -64,7 +64,7 @@ it('returns true when validating a non-expired url', function () {
 it('can sign with a DateTimeImmutable instance', function () {
     $url = 'http://myapp.com/';
 
-    $expiration = (new DateTimeImmutable())->modify('10000 seconds');
+    $expiration = (new DateTimeImmutable)->modify('10000 seconds');
     $signedUrl = $this->urlSigner->sign($url, $expiration);
 
     expect($this->urlSigner->validate($signedUrl))->toBeTrue();

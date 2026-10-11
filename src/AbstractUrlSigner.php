@@ -103,7 +103,7 @@ abstract class AbstractUrlSigner implements UrlSignerContract
 
     protected function isFuture(int $timestamp): bool
     {
-        return $timestamp >= (new DateTime())->getTimestamp();
+        return $timestamp >= (new DateTime)->getTimestamp();
     }
 
     protected function getIntendedUrl(string $url): string
@@ -117,7 +117,7 @@ abstract class AbstractUrlSigner implements UrlSignerContract
     protected function getExpirationTimestamp(DateTimeInterface|int $expirationInSeconds): string
     {
         if (is_int($expirationInSeconds)) {
-            $expirationInSeconds = (new DateTime())->modify($expirationInSeconds.' seconds');
+            $expirationInSeconds = (new DateTime)->modify($expirationInSeconds.' seconds');
         }
 
         if (! $expirationInSeconds instanceof DateTimeInterface) {

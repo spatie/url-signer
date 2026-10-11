@@ -5,7 +5,7 @@ namespace Spatie\UrlSigner;
 use DateTime;
 
 /**
- * @deprecated Use {@see \Spatie\UrlSigner\Contracts\UrlSigner} instead
+ * @deprecated Use {@see Contracts\UrlSigner} instead
  */
 interface UrlSigner
 {

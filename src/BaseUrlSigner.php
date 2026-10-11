@@ -62,8 +62,23 @@ abstract class BaseUrlSigner implements UrlSigner
         }
 
         $expiration = $queryParameters[$this->expiresParameterName];
+        $providedSignature = $queryParameters[$this->signatureParameterName];
 
-        if (! $this->isFuture($expiration)) {
+        if (! is_string($expiration)) {
+            return false;
+        }
+
+        if (! is_string($providedSignature)) {
+            return false;
+        }
+
+        $timestamp = filter_var($expiration, FILTER_VALIDATE_INT);
+
+        if ($timestamp === false) {
+            return false;
+        }
+
+        if (! $this->isFuture($timestamp)) {
             return false;
         }
 
@@ -89,7 +104,7 @@ abstract class BaseUrlSigner implements UrlSigner
 
     protected function isFuture(int $timestamp): bool
     {
-        return $timestamp >= (new DateTime())->getTimestamp();
+        return $timestamp >= (new DateTime)->getTimestamp();
     }
 
     protected function getIntendedUrl(string $url): string
@@ -103,7 +118,7 @@ abstract class BaseUrlSigner implements UrlSigner
     protected function getExpirationTimestamp(DateTime|int $expirationInSeconds): string
     {
         if (is_int($expirationInSeconds)) {
-            $expirationInSeconds = (new DateTime())->modify($expirationInSeconds.' seconds');
+            $expirationInSeconds = (new DateTime)->modify($expirationInSeconds.' seconds');
         }
 
         if (! $expirationInSeconds instanceof DateTime) {

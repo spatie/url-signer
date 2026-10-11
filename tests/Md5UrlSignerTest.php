@@ -29,6 +29,29 @@ it('returns false when validating an expired url', function () {
     expect($this->urlSigner->validate($signedUrl))->toBeFalse();
 });
 
+it('returns false for malformed signing parameters', function (string $parameter) {
+    $signedUrl = $this->urlSigner->sign('https://example.com/download', 3600);
+
+    expect($this->urlSigner->validate("{$signedUrl}&{$parameter}"))->toBeFalse();
+})->with([
+    'array expiration' => ['expires[]=9999999999'],
+    'nested array expiration' => ['expires[foo][bar]=9999999999'],
+    'array signature' => ['signature[]=invalid'],
+    'empty expiration' => ['expires='],
+    'non-numeric expiration' => ['expires=abc'],
+    'partially numeric expiration' => ['expires=9999999999abc'],
+    'decimal expiration' => ['expires=9999999999.0'],
+    'excessive expiration' => ['expires=999999999999999999999999999999'],
+]);
+
+it('rejects a signed non-integer expiration', function () {
+    $url = 'https://example.com/download';
+    $expiration = '1e10';
+    $signature = md5("{$url}::{$expiration}::random_monkey");
+
+    expect($this->urlSigner->validate("{$url}?expires={$expiration}&signature={$signature}"))->toBeFalse();
+});
+
 it('returns true when validating a non-expired url', function () {
     $url = 'http://myapp.com';
 

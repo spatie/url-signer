@@ -35,7 +35,11 @@ it('returns false for malformed signing parameters', function (string $parameter
     expect($this->urlSigner->validate("{$signedUrl}&{$parameter}"))->toBeFalse();
 })->with([
     'array expiration' => ['expires[]=9999999999'],
+    'nested array expiration' => ['expires[foo][bar]=9999999999'],
     'array signature' => ['signature[]=invalid'],
+    'empty expiration' => ['expires='],
+    'non-numeric expiration' => ['expires=abc'],
+    'partially numeric expiration' => ['expires=9999999999abc'],
     'decimal expiration' => ['expires=9999999999.0'],
     'excessive expiration' => ['expires=999999999999999999999999999999'],
 ]);

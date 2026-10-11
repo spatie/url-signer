@@ -62,8 +62,23 @@ abstract class BaseUrlSigner implements UrlSigner
         }
 
         $expiration = $queryParameters[$this->expiresParameterName];
+        $providedSignature = $queryParameters[$this->signatureParameterName];
 
-        if (! $this->isFuture($expiration)) {
+        if (! is_string($expiration)) {
+            return false;
+        }
+
+        if (! is_string($providedSignature)) {
+            return false;
+        }
+
+        $timestamp = filter_var($expiration, FILTER_VALIDATE_INT);
+
+        if ($timestamp === false) {
+            return false;
+        }
+
+        if (! $this->isFuture($timestamp)) {
             return false;
         }
 

@@ -2,6 +2,29 @@
 
 All notable changes to `url-signer` will be documented in this file
 
+## 2.1.4 - 2026-10-11
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/67
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/69
+* Update issue template by @AlexVanderbist in https://github.com/spatie/url-signer/pull/71
+* ci: add tests for PHP 8.5 by @Chris53897 in https://github.com/spatie/url-signer/pull/73
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/75
+* Bump actions/checkout from 4 to 6 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/74
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/72
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/76
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/77
+* Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/spatie/url-signer/pull/78
+* Reject malformed signed URL parameters by @freekmurze in https://github.com/spatie/url-signer/pull/79
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/url-signer/pull/71
+* @Chris53897 made their first contribution in https://github.com/spatie/url-signer/pull/73
+
+**Full Changelog**: https://github.com/spatie/url-signer/compare/2.1.3...2.1.4
+
 ## 2.1.3 - 2025-02-14
 
 ### What's Changed
